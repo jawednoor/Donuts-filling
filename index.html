@@ -35,7 +35,21 @@
                     <a href="#products" class="hero-icon" aria-label="منتجاتنا"><span class="txt">منتجاتنا</span></a>
                     <a href="#contact" class="hero-icon" aria-label="تواصل معنا"><span class="txt">تواصل</span></a>
                 </div>
-                <a href="#intro" class="scroll-down" aria-label="انزل للأسفل">⬇</a>
+                                <a href="#intro" class="scroll-down" aria-label="انزل للأسفل" style="display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;margin-top:38px;">
+                                    <span class="scroll-btn" style="display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#D4128B 80%,#fff 100%);box-shadow:0 4px 16px rgba(212,18,139,0.18);border:3px solid #fff;animation:scrollBounce 1.2s infinite;">
+                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="16" cy="16" r="13" stroke="none" stroke-width="0" fill="none"/>
+                                            <polyline points="10,14 16,20 22,14" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </span>
+                                    <span style="font-family:'Cairo',Arial,sans-serif;font-size:16px;color:#D4128B;font-weight:700;background:#fff;border-radius:12px;padding:2px 14px;box-shadow:0 2px 8px rgba(212,18,139,0.10);">انزل للأسفل</span>
+                                </a>
+                                <style>
+                                @keyframes scrollBounce {
+                                    0%, 100% { transform: translateY(0);}
+                                    50% { transform: translateY(16px);}
+                                }
+                                </style>
             </div>
         </div>
         <!-- حافة زيك زاك صغيرة مدمجة داخل السلايدر -->
@@ -50,7 +64,6 @@
         </svg>
     </section>
     
-
     <section id="intro" class="intro reveal">
         <div class="intro-flex">
             <img class="intro-logo" src="assets/brand/new-logo.png" alt="شعار دونات وحشوة">
@@ -75,11 +88,11 @@
         <div class="gallery-grid">
             <figure class="gallery-card">
                 <img src="img/IMG-20250806-WA0002.jpg" alt="دونات بالشوكولاتة">
-                <figcaption>دونات بالفستق</figcaption>
+                <figcaption>حشوة الفستق</figcaption>
             </figure>
             <figure class="gallery-card">
-                <img src="img/IMG-20250806-WA0003.jpg" alt="دونات بالفستق">
-                <figcaption>دونات بالفستق</figcaption>
+                <img src="img/IMG-20250807-WA058.jpg" alt="دونات بالفستق">
+                <figcaption>حشوة النوتيلا</figcaption>
             </figure>
             <figure class="gallery-card">
                 <img src="img/IMG-20250807-WA0016.jpg" alt="دونات بالكريمة">
@@ -87,70 +100,40 @@
             </figure>
             <figure class="gallery-card">
                 <img src="img/IMG-20250807-WA0018.jpg" alt="دونات بالفراولة">
-                <figcaption>دونات بالكندر</figcaption>
+                <figcaption>حشوة الكندر</figcaption>
             </figure>
         </div>
     </section>
 
-    <section id="showcase" class="showcase reveal">
-        <h2>تشكيلاتنا</h2>
-        <div class="slider">
-            <button class="slide-btn prev" aria-label="السابق">‹</button>
-            <div class="slides">
-                <div class="slide is-active">
-                    <img src="img/IMG-20250807-WA0016.jpg" alt="دونات كريمة">
-                    <div class="slide-caption">طراوة لا تُقاوم</div>
+    <section id="contact" style="position:relative;overflow:hidden;">
+        <!-- خلفية شفافة 20% -->
+        <div style="position:absolute;inset:0;z-index:0;pointer-events:none;">
+            <img src="assets/brand/contact-bg.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.2;">
+        </div>
+        <div class="contact-flex" style="position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <h2 class="contact-title">تواصل معنا</h2>
+            <div class="contact-socials">
+                <div style="display:flex;gap:18px;"></div>
+                    <a class="contact-icon" href="https://www.snapchat.com/add/donts171" target="_blank" aria-label="سناب شات @donts171" style="display:flex;flex-direction:column;align-items:center;text-decoration:none;">
+                        <span style="background:#ffffff;border-radius:50%;padding:8px;box-shadow:0 2px 8px rgba(0,0,0,0.10);display:inline-flex;">
+                            <img src="assets/brand/snapshat.svg" alt="سناب شات" style="width:32px;height:32px;">
+                        </span>
+                    </a>
+                    <a class="contact-icon" href="https://www.tiktok.com/@donts171" target="_blank" aria-label="تيك توك @donts171" style="display:flex;flex-direction:column;align-items:center;text-decoration:none;">
+                        <span style="background:#ffffff;border-radius:50%;padding:8px;box-shadow:0 2px 8px rgba(0,0,0,0.10);display:inline-flex;">
+                            <img src="assets/brand/tiktok-01.svg" alt="تيك توك" style="width:32px;height:32px;">
+                        </span>
+                    </a>
                 </div>
-                <div class="slide">
-                    <img src="img/IMG-20250807-WA0018.jpg" alt="دونات فراولة">
-                    <div class="slide-caption">نكهات تفتح النفس</div>
-                </div>
-                <div class="slide">
-                    <img src="img/IMG-20250806-WA0002.jpg" alt="دونات شوكولاتة">
-                    <div class="slide-caption">غنى الشوكولاتة</div>
-                </div>
-            </div>
-            <button class="slide-btn next" aria-label="التالي">›</button>
+            <div class="contact-desc">راسلنا أو تابعنا على سناب وتيك توك لأي استفسار أو طلب</div>
         </div>
     </section>
 
-    <section id="about">
-        <h2>من نحن</h2>
-        <p>نحن متخصصون في تقديم أفضل أنواع الدونات المحشوة بنكهات فريدة تناسب جميع الأذواق.</p>
-        <p>هدفنا هو إسعاد عملائنا بألذ الحلويات التي تضيف لمسة من الفرح لكل مناسبة.</p>
-    </section>
-
-    <section id="contact">
-        <h2>تواصل معنا</h2>
-        <p>تابعونا على حساباتنا:</p>
-        <div class="social-links">
-            <a class="social-btn snapchat" href="https://www.snapchat.com/add/donts171" target="_blank" rel="noopener" aria-label="سناب شات @donts171">
-                <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <path fill="currentColor" d="M32 8c-8.8 0-16 7.2-16 16v5c0 3-1.6 5.7-4.2 7.2 1.6 2.8 5 4.2 8.2 5-1 .9-2.2 1.7-3.6 2.2 2.5 3.4 7 5.6 11.6 5.6s9.1-2.2 11.6-5.6c-1.4-.5-2.6-1.3-3.6-2.2 3.2-.8 6.6-2.2 8.2-5-2.6-1.5-4.2-4.2-4.2-7.2v-5c0-8.8-7.2-16-16-16z"/>
-                </svg>
-                <span>@donts171</span>
-            </a>
-            <a class="social-btn tiktok" href="https://www.tiktok.com/@donts171" target="_blank" rel="noopener" aria-label="تيك توك @donts171">
-                <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <path fill="currentColor" d="M40 12v14.5c0 6.5-5.3 11.8-11.8 11.8-2.6 0-5-.9-6.9-2.4v8.1c2 1 4.4 1.6 6.9 1.6 9.2 0 16.8-7.5 16.8-16.8V22c2.9 2.5 6.6 4 10.6 4v-7.2c-3.8 0-7.3-1.9-10.6-5.8V12h-5z"/>
-                </svg>
-                <span>@donts171</span>
-            </a>
-        </div>
-        <form>
-            <label for="name">الاسم:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="message">رسالتك:</label>
-            <textarea id="message" name="message" required></textarea>
-
-            <button type="submit">إرسال</button>
-        </form>
-    </section>
-
-    <footer>
-        <p>© 2025 دونات وحشوة. جميع الحقوق محفوظة.</p>
-        <p>أحد فروع مؤسسة أذواق الجديدة.</p>
+    <footer style="background:#D4128B;padding:14px 0;text-align:center;font-family:'Cairo',Arial,sans-serif;">
+    <div style="max-width:480px;margin:auto;">
+        <p style="font-size:15px;color:#fff;font-weight:700;margin:0;">© 2025 دونات وحشوة. جميع الحقوق محفوظة.</p>
+        <p style="font-size:13px;color:#fff;margin:6px 0 0 0;">أحد فروع مؤسسة أذواق الجديدة.</p>
+    </div>
     </footer>
     <script src="script.js" defer></script>
 </body>

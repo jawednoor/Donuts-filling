@@ -1,12 +1,104 @@
+/* تنسيق قسم التواصل */
+section#contact, section#contact.reveal, .contact-flex, .contact-flex::before, .contact-flex::after {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: linear-gradient(#d40887, #e33295 20%) !important;
+}
+.contact-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  padding: 48px 18px 38px 18px;
+  position: relative;
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  min-height: 420px;
+  z-index: 1;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  border-radius: 0 !important;
+}
+
+.contact-flex::before {
+  
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('assets/brand/contact-bg.jpg') center/cover no-repeat;
+  opacity: 0.2;
+  border-radius: 0 !important;
+}
+.contact-flex::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(217,20,139,0.70) 0%, rgba(227,50,149,0.70) 100%);
+  border-radius: 0 !important;
+}
+.contact-title, .contact-socials, .contact-desc {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-align: center;
+}
+.contact-title {
+  font-size: 2.2rem;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 0;
+  text-align: center;
+}
+.contact-socials {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.contact-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0 10px;
+  border-radius: 999px;
+  transition: color .18s;
+}
+.contact-icon:hover {
+  color: var(--brand);
+}
+.contact-handle {
+  font-size: 1.18rem;
+  font-weight: 600;
+}
+.contact-desc {
+  color: #fff;
+  font-size: 1.08rem;
+  text-align: center;
+  margin-top: 8px;
+}
 /* شبكة المنتجات متجاوبة */
 .gallery-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 22px;
-  margin: 32px 0;
-}
-
-@media (min-width: 600px) {
+    border: none !important;
+    box-shadow: none !important;
+    background: none !important;
+    border-radius: 0 !important;
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 28px;
@@ -48,7 +140,7 @@
 /* خط فاصل بين العنوان والوصف */
 .intro-sep {
   border: none;
-  border-top: 3px solid #ffeee6;
+  border-top: 3px solid #b34411;
   width: 48px;
   margin: 18px auto 18px auto;
   opacity: 1;
@@ -225,10 +317,10 @@ section h2 {
 
 section h2::after, section h1::after {
     content:"";
-    display:block;
-    margin:12px auto 0;
-    height:4px;
-    width:120px;
+    display: block;
+    width: 100%;
+    height: 38px;
+    margin-bottom: -22px;
     background: linear-gradient(90deg, var(--brand), var(--brand-2));
     border-radius:4px;
 }
@@ -456,18 +548,15 @@ header, section, footer{ position: relative; z-index: 1; }
 .hero-icon .txt{ font-weight:700; }
 
 .scroll-down{
-  position:relative;
-  display:inline-flex; width:46px; height:46px; align-items:center; justify-content:center; border-radius:50%; margin-top: 6px;
-  background-image: linear-gradient(135deg, var(--brand), var(--brand-2));
-  color:#fff; text-decoration:none;
-  border:2px solid rgba(255,255,255,.95);
-  box-shadow: 0 8px 18px rgba(0,0,0,.38), 0 0 0 3px rgba(0,0,0,.18) inset;
+  position: relative;
+  z-index: 2;
+  margin-top: -22px;
+  padding-top: 0;
   text-shadow: 0 1px 2px rgba(0,0,0,.65);
   animation: bounce 1.6s infinite;
 }
 .scroll-down::after{
   content: ""; position:absolute; inset:-6px; border-radius:50%; pointer-events:none;
-  box-shadow: 0 0 0 3px rgba(255,255,255,.85);
 }
 .scroll-down:hover{ filter: brightness(1.05); }
 .scroll-down:focus-visible{ outline:none; box-shadow: 0 0 0 4px rgba(255,255,255,.7), 0 0 0 7px rgba(212,8,135,.45); }
@@ -482,6 +571,7 @@ header, section, footer{ position: relative; z-index: 1; }
   align-items: center;
   justify-content: center;
   padding: 0;
+  margin-top: 50px !important;
 }
 .intro::after{
   content: "";
@@ -591,7 +681,7 @@ header, section, footer{ position: relative; z-index: 1; }
 
 /* ===== Small zigzag edge inside the slider ===== */
 .zigzag-edge{
-  position:absolute; left:0; right:0; bottom:0;
+  position:absolute; left:0; right:0; bottom:0px;
   display:block; width:100%; height:8mm; /* صغيرة وملاصقة للسلايد */
   pointer-events:none;
   filter: drop-shadow(0 2px 0 rgba(0,0,0,.25)) drop-shadow(0 4px 6px rgba(0,0,0,.18));
