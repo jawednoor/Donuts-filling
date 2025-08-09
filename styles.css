@@ -1,3 +1,72 @@
+/* تدرج علوي فوق السلايدر */
+.top-slider {
+  position: relative;
+}
+.top-fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 80px;
+  z-index: 100;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(212,18,139,0.7) 0%, rgba(212,18,139,0.0) 100%);
+}
+/* سلايدر علوي مع نص متحرك */
+.top-slides {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.slide-wrap {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  transition: opacity 0.7s;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  pointer-events: none;
+}
+.slide-wrap.active {
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+}
+.slide-wrap img.top-slide {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+.slide-flash-text {
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: 7%;
+  transform: translateX(-50%);
+  font-family: 'Cairo', Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  background: rgba(212,18,139,0.5);
+  border-radius: 18px;
+  padding: 10px 24px;
+  box-shadow: 0 4px 24px rgba(212,18,139,0.18);
+  animation: flashText 1.2s;
+  text-align: center;
+  pointer-events: none;
+  margin-bottom: 32px;
+}
+@keyframes flashText {
+  0% { opacity: 0; transform: translateX(-50%) scale(0.7); }
+  60% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1); }
+}
 /* تنسيق قسم التواصل */
 section#contact, section#contact.reveal, .contact-flex, .contact-flex::before, .contact-flex::after {
   background: none !important;
