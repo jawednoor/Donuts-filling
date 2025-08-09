@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دونات وحشوة</title>
+    <link rel="icon" type="image/png" href="assets/brand/new-logo.png">
+    <link rel="apple-touch-icon" href="assets/brand/new-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="bgfx" aria-hidden="true"></div>
+    
+
+    <!-- سلايدر علوي ملء الشاشة مع طبقة شعار وأزرار فوقه -->
+    <section id="home" class="top-slider" aria-label="شرائح تعريفية">
+        <div class="top-slides">
+            <img class="top-slide is-active" src="img/IMG-20250807-WA0016.jpg" alt="شريحة 1">
+            <img class="top-slide" src="img/IMG-20250807-WA0018.jpg" alt="شريحة 2">
+            <img class="top-slide" src="img/IMG-20250806-WA0002.jpg" alt="شريحة 3">
+            <img class="top-slide" src="img/IMG-20250806-WA0003.jpg" alt="شريحة 4">
+        </div>
+        <!-- تدرج علوي 30مم من شفافية 70% إلى 0% فوق الصور -->
+        <div class="top-fade" aria-hidden="true"></div>
+        <!-- طبقة المحتوى فوق السلايدات -->
+        <div class="top-overlay">
+            <div class="hero-content">
+                <img class="hero-logo" src="assets/brand/new-logo.png" alt="شعار دونات وحشوة">
+                <div class="hero-icons">
+                    <a href="#home" class="hero-icon" aria-label="البداية"><span class="txt">البداية</span></a>
+                    <a href="#about" class="hero-icon" aria-label="من نحن"><span class="txt">من نحن</span></a>
+                    <a href="#products" class="hero-icon" aria-label="منتجاتنا"><span class="txt">منتجاتنا</span></a>
+                    <a href="#contact" class="hero-icon" aria-label="تواصل معنا"><span class="txt">تواصل</span></a>
+                </div>
+                <a href="#intro" class="scroll-down" aria-label="انزل للأسفل">⬇</a>
+            </div>
+        </div>
+        <!-- حافة زيك زاك صغيرة مدمجة داخل السلايدر -->
+        <svg class="zigzag-edge" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+                <linearGradient id="zigzagGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="var(--brand)"/>
+                    <stop offset="100%" stop-color="var(--brand-2)"/>
+                </linearGradient>
+            </defs>
+            <polygon fill="url(#zigzagGrad)" points="0,0 5,10 10,0 15,10 20,0 25,10 30,0 35,10 40,0 45,10 50,0 55,10 60,0 65,10 70,0 75,10 80,0 85,10 90,0 95,10 100,0 100,10 0,10"></polygon>
+        </svg>
+    </section>
+    
+
+    <section id="intro" class="intro reveal">
+        <div class="intro-flex">
+            <img class="intro-logo" src="assets/brand/new-logo.png" alt="شعار دونات وحشوة">
+            <div class="intro-texts">
+                                <h2 class="intro-title">
+                                    دونات وحشوة<br>
+                                    الحلا اللي يسرق قلبك<br>
+                                    قبل فمك
+                                </h2>
+                                <p class="intro-desc">
+                                    قطعة دونات محضّرة بعناية،<br>
+                                    بحشوات غنية ونكهات مبتكرة<br>
+                                    تذوب في فمك وتترك أثر لا يُنسى
+                                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="products">
+        <h2>منتجاتنا</h2>
+        <p>استمتع بألذ النكهات التي تناسب جميع الأذواق.</p>
+        <div class="gallery-grid">
+            <figure class="gallery-card">
+                <img src="img/IMG-20250806-WA0002.jpg" alt="دونات بالشوكولاتة">
+                <figcaption>دونات بالفستق</figcaption>
+            </figure>
+            <figure class="gallery-card">
+                <img src="img/IMG-20250806-WA0003.jpg" alt="دونات بالفستق">
+                <figcaption>دونات بالفستق</figcaption>
+            </figure>
+            <figure class="gallery-card">
+                <img src="img/IMG-20250807-WA0016.jpg" alt="دونات بالكريمة">
+                <figcaption>دونات بالكريمة</figcaption>
+            </figure>
+            <figure class="gallery-card">
+                <img src="img/IMG-20250807-WA0018.jpg" alt="دونات بالفراولة">
+                <figcaption>دونات بالكندر</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section id="showcase" class="showcase reveal">
+        <h2>تشكيلاتنا</h2>
+        <div class="slider">
+            <button class="slide-btn prev" aria-label="السابق">‹</button>
+            <div class="slides">
+                <div class="slide is-active">
+                    <img src="img/IMG-20250807-WA0016.jpg" alt="دونات كريمة">
+                    <div class="slide-caption">طراوة لا تُقاوم</div>
+                </div>
+                <div class="slide">
+                    <img src="img/IMG-20250807-WA0018.jpg" alt="دونات فراولة">
+                    <div class="slide-caption">نكهات تفتح النفس</div>
+                </div>
+                <div class="slide">
+                    <img src="img/IMG-20250806-WA0002.jpg" alt="دونات شوكولاتة">
+                    <div class="slide-caption">غنى الشوكولاتة</div>
+                </div>
+            </div>
+            <button class="slide-btn next" aria-label="التالي">›</button>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>من نحن</h2>
+        <p>نحن متخصصون في تقديم أفضل أنواع الدونات المحشوة بنكهات فريدة تناسب جميع الأذواق.</p>
+        <p>هدفنا هو إسعاد عملائنا بألذ الحلويات التي تضيف لمسة من الفرح لكل مناسبة.</p>
+    </section>
+
+    <section id="contact">
+        <h2>تواصل معنا</h2>
+        <p>تابعونا على حساباتنا:</p>
+        <div class="social-links">
+            <a class="social-btn snapchat" href="https://www.snapchat.com/add/donts171" target="_blank" rel="noopener" aria-label="سناب شات @donts171">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <path fill="currentColor" d="M32 8c-8.8 0-16 7.2-16 16v5c0 3-1.6 5.7-4.2 7.2 1.6 2.8 5 4.2 8.2 5-1 .9-2.2 1.7-3.6 2.2 2.5 3.4 7 5.6 11.6 5.6s9.1-2.2 11.6-5.6c-1.4-.5-2.6-1.3-3.6-2.2 3.2-.8 6.6-2.2 8.2-5-2.6-1.5-4.2-4.2-4.2-7.2v-5c0-8.8-7.2-16-16-16z"/>
+                </svg>
+                <span>@donts171</span>
+            </a>
+            <a class="social-btn tiktok" href="https://www.tiktok.com/@donts171" target="_blank" rel="noopener" aria-label="تيك توك @donts171">
+                <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <path fill="currentColor" d="M40 12v14.5c0 6.5-5.3 11.8-11.8 11.8-2.6 0-5-.9-6.9-2.4v8.1c2 1 4.4 1.6 6.9 1.6 9.2 0 16.8-7.5 16.8-16.8V22c2.9 2.5 6.6 4 10.6 4v-7.2c-3.8 0-7.3-1.9-10.6-5.8V12h-5z"/>
+                </svg>
+                <span>@donts171</span>
+            </a>
+        </div>
+        <form>
+            <label for="name">الاسم:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="message">رسالتك:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">إرسال</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2025 دونات وحشوة. جميع الحقوق محفوظة.</p>
+        <p>أحد فروع مؤسسة أذواق الجديدة.</p>
+    </footer>
+    <script src="script.js" defer></script>
+</body>
+</html>
