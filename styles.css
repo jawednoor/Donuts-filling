@@ -1,3 +1,14 @@
+  position: relative;
+.top-fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 5cm;
+  pointer-events: none;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+}
 /* سلايدر علوي ونص متحرك لكل شريحة */
 .top-slides {
   position: relative;
@@ -42,7 +53,8 @@
   background: rgba(212,18,139,0.5);
   border-radius: 18px;
   padding: 12px 32px;
-  box-shadow: 0 4px 24px rgba(212,18,139,0.18);
+  box-shadow: 0 8px 32px rgba(212,18,139,0.28);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.38), 0 1px 0 #fff;
   animation: flashText 1.2s;
   text-align: center;
   pointer-events: none;
@@ -156,11 +168,11 @@ section#contact, section#contact.reveal, .contact-flex, .contact-flex::before, .
     border-radius: 0 !important;
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+    background: rgba(212,18,139,0.72);
   }
 }
-
-@media (min-width: 900px) {
+    box-shadow: 0 12px 40px rgba(212,18,139,0.38);
+    text-shadow: 0 4px 18px rgba(0,0,0,0.55), 0 1px 0 #fff;
   .gallery-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 32px;
