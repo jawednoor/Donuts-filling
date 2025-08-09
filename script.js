@@ -86,16 +86,18 @@
 
   let idx = wraps.findIndex(w=> w.querySelector('.top-slide').classList.contains('is-active'));
   if(idx < 0){ idx = 0; }
-  wraps.forEach((w,i)=>{
-    w.classList.toggle('active', i===idx);
-    w.querySelector('.top-slide').classList.toggle('is-active', i===idx);
-  });
+  function updateSlides(activeIdx) {
+    wraps.forEach((w,i)=>{
+      w.classList.toggle('active', i===activeIdx);
+      w.querySelector('.top-slide').classList.toggle('is-active', i===activeIdx);
+      let txt = w.querySelector('.slide-flash-text');
+      if(txt) txt.style.display = (i===activeIdx) ? 'block' : 'none';
+    });
+  }
+  updateSlides(idx);
 
   setInterval(()=>{
-    wraps.forEach((w,i)=>{
-      w.classList.toggle('active', i===((idx+1)%wraps.length));
-      w.querySelector('.top-slide').classList.toggle('is-active', i===((idx+1)%wraps.length));
-    });
     idx = (idx + 1) % wraps.length;
+    updateSlides(idx);
   }, 4000);
 })();
