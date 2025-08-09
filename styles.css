@@ -1,4 +1,4 @@
-  position: relative;
+
 .top-fade {
   position: absolute;
   top: 0;
@@ -162,22 +162,8 @@ section#contact, section#contact.reveal, .contact-flex, .contact-flex::before, .
   display: grid;
   grid-template-columns: 1fr;
   gap: 22px;
-    border: none !important;
-    box-shadow: none !important;
-    background: none !important;
-    border-radius: 0 !important;
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    background: rgba(212,18,139,0.72);
-  }
 }
-    box-shadow: 0 12px 40px rgba(212,18,139,0.38);
-    text-shadow: 0 4px 18px rgba(0,0,0,0.55), 0 1px 0 #fff;
-  .gallery-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-  }
-}
+
 
 .gallery-card {
   background: #fff;
