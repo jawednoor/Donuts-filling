@@ -77,46 +77,25 @@
 // تأثير Ripple لروابط الهيدر غير مطلوب الآن
 
 // سلايدر علوي: يتغير كل 4 ثواني، ويقرأ الصور من مجلد img إن توفرت بأسماء نمطية
+
 (function(){
   const container = document.querySelector('.top-slides');
   if(!container) return;
-  let slides = Array.from(container.querySelectorAll('.top-slide'));
+  let wraps = Array.from(container.querySelectorAll('.slide-wrap'));
+  if(!wraps.length) return;
 
-  // محاولة تحميل صور إضافية نمطية تلقائيًا (banner-1..5 أو slide-1..5)
-  const candidates = [];
-  for(let i=1;i<=5;i++){
-    candidates.push(`img/banner-${i}.jpg`,`img/banner-${i}.png`,`img/slide-${i}.jpg`,`img/slide-${i}.png`);
-  }
-  function preload(src){
-    return new Promise(res=>{ const im = new Image(); im.onload=()=>res(src); im.onerror=()=>res(null); im.src=src; });
-  }
-  (async ()=>{
-    const found = [];
-    for(const c of candidates){ // نجرب بالتتابع لتجنب طلبات كثيرة
-      // نتجاهل ما هو موجود بالفعل
-      if(slides.some(s=> s.getAttribute('src')===c)) continue;
-      const ok = await preload(c);
-      if(ok) found.push(ok);
-    }
-    if(found.length){
-      found.forEach(src=>{
-        const img = document.createElement('img');
-        img.className = 'top-slide';
-        img.alt = 'شريحة';
-        img.src = src;
-        container.appendChild(img);
-      });
-      slides = Array.from(container.querySelectorAll('.top-slide'));
-    }
-  })();
-
-  let idx = slides.findIndex(s=> s.classList.contains('is-active'));
-  if(idx < 0){ idx = 0; slides[0]?.classList.add('is-active'); }
+  let idx = wraps.findIndex(w=> w.querySelector('.top-slide').classList.contains('is-active'));
+  if(idx < 0){ idx = 0; }
+  wraps.forEach((w,i)=>{
+    w.classList.toggle('active', i===idx);
+    w.querySelector('.top-slide').classList.toggle('is-active', i===idx);
+  });
 
   setInterval(()=>{
-    if(!slides.length) return;
-    slides[idx]?.classList.remove('is-active');
-    idx = (idx + 1) % slides.length;
-    slides[idx]?.classList.add('is-active');
+    wraps.forEach((w,i)=>{
+      w.classList.toggle('active', i===((idx+1)%wraps.length));
+      w.querySelector('.top-slide').classList.toggle('is-active', i===((idx+1)%wraps.length));
+    });
+    idx = (idx + 1) % wraps.length;
   }, 4000);
 })();
