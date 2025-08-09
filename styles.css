@@ -1,18 +1,4 @@
-/* تدرج علوي فوق السلايدر */
-.top-slider {
-  position: relative;
-}
-.top-fade {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 80px;
-  z-index: 100;
-  pointer-events: none;
-  background: linear-gradient(to bottom, rgba(212,18,139,0.7) 0%, rgba(212,18,139,0.0) 100%);
-}
-/* سلايدر علوي مع نص متحرك */
+/* سلايدر علوي ونص متحرك لكل شريحة */
 .top-slides {
   position: relative;
   width: 100vw;
@@ -55,7 +41,7 @@
   color: #fff;
   background: rgba(212,18,139,0.5);
   border-radius: 18px;
-  padding: 10px 24px;
+  padding: 12px 32px;
   box-shadow: 0 4px 24px rgba(212,18,139,0.18);
   animation: flashText 1.2s;
   text-align: center;
