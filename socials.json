@@ -1,0 +1,10 @@
+{
+  "title": "",
+  "desc": "",
+  "snapchat": { "url": "https://www.snapchat.com/add/donts171", "enabled": true },
+  "tiktok": { "url": "https://www.tiktok.com/@donats171", "enabled": true },
+  "whatsapp": { "url": "", "enabled": false },
+  "twitter": { "url": "", "enabled": false },
+  "instagram": { "url": "", "enabled": false },
+  "x": { "url": "", "enabled": false }
+}

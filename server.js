@@ -7,6 +7,18 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static(__dirname));
 
+// قراءة settings.json
+app.get('/settings.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'settings.json'));
+});
+
+// حفظ settings.json
+app.post('/settings.json', (req, res) => {
+  fs.writeFile(path.join(__dirname, 'settings.json'), JSON.stringify(req.body, null, 2), err => {
+    if (err) return res.status(500).json({error: 'خطأ في الحفظ'});
+    res.json({success: true});
+  });
+});
 // قراءة slides.json
 app.get('/slides.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'slides.json'));

@@ -1,0 +1,39 @@
+{
+  "title": "",
+  "desc": "",
+  "snapchat": {
+    "url": "https://www.snapchat.com/add/donts171",
+    "enabled": true,
+    "icon": "http://localhost:3000/assets/brand/snapshat.svg"
+  },
+  "whatsapp": {
+    "url": "",
+    "enabled": false,
+    "icon": "http://localhost:3000/assets/brand/whatsapp.svg"
+  },
+  "instagram": {
+    "url": "",
+    "enabled": false,
+    "icon": "http://localhost:3000/assets/brand/instgram.svg"
+  },
+  "x": {
+    "url": "",
+    "enabled": false,
+    "icon": "http://localhost:3000/assets/brand/X-02.svg"
+  },
+  "youtube": {
+    "url": "",
+    "enabled": false,
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"
+  },
+  "tiktok": {
+    "url": "https://www.tiktok.com/@donats171",
+    "enabled": true,
+    "icon": "http://localhost:3000/assets/brand/tiktok.svg"
+  },
+  "twitter": {
+    "url": "",
+    "enabled": false,
+    "icon": "http://localhost:3000/assets/brand/twitter.svg"
+  }
+}

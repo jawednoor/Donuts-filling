@@ -124,10 +124,29 @@
             <li><a href="#" class="active" id="nav-products" onclick="showTab('products')">المنتجات</a></li>
             <li><a href="#" id="nav-slides" onclick="showTab('slides')">السلايدر</a></li>
             <li><a href="#" id="nav-intro" onclick="showTab('intro')">من نحن</a></li>
-            <li><a href="#" style="opacity:0.5;pointer-events:none;">الإعدادات</a></li>
+            <li><a href="#" id="nav-contact" onclick="showTab('contact')">التواصل</a></li>
+            <li><a href="#" id="nav-settings" onclick="showTab('settings')">الإعدادات</a></li>
         </ul>
+
     </nav>
     <main class="main-content">
+        <div id="tab-contact" style="display:none;max-width:800px;margin:auto;">
+            <h1>إعدادات التواصل والسوشال ميديا</h1>
+            <form onsubmit="saveContact();return false;">
+                <label>عنوان التواصل:<br>
+                    <input type="text" id="contact-title" style="width:100%;margin-bottom:10px;">
+                </label><br>
+                <label>وصف التواصل:<br>
+                    <textarea id="contact-desc" rows="2" style="width:100%;margin-bottom:10px;"></textarea>
+                </label><br>
+                <fieldset style="border:1px solid #eee;padding:12px 8px 8px 8px;margin-bottom:16px;border-radius:8px;">
+                    <legend style="font-size:1.1em;color:#850553;font-weight:700;">منصات السوشال ميديا</legend>
+                    <div id="socials-list" style="display:flex;flex-direction:column;gap:18px;"></div>
+                </fieldset>
+                <button class="save-btn" type="submit">حفظ التواصل</button>
+                <p id="msg-contact"></p>
+            </form>
+        </div>
         <div id="tab-products">
             <h1>إدارة المنتجات</h1>
             <label>عدد المنتجات:
@@ -143,6 +162,11 @@
             <p id="msg"></p>
             <p style="text-align:center;color:#888;font-size:13px;margin-top:24px;">* قد تحتاج إلى خادم محلي (مثل Live Server أو Node.js) ليعمل الحفظ بشكل صحيح.</p>
         </div>
+        <div id="tab-settings" style="display:none;max-width:700px;margin:auto;">
+            <h1>الإعدادات</h1>
+            <p style="color:#888;text-align:center;margin:40px 0;">لا توجد إعدادات إضافية حالياً.</p>
+        </div>
+    <!-- كود جافاسكريبت الخاص بحسابات السوشال ميديا سيتم نقله لنهاية الصفحة -->
         <div id="tab-slides" style="display:none;">
             <h1>إدارة السلايدر (الشرائح)</h1>
             <label>عدد الشرائح:
@@ -180,15 +204,223 @@
         </div>
     </main>
     <script>
+    // Socials section logic
+    let socials = [];
+    function renderSocialsTable() {
+        const tbody = document.querySelector('#socials-table tbody');
+        tbody.innerHTML = '';
+        socials.forEach(function(soc, i) {
+            const row = document.createElement('tr');
+            row.innerHTML = '<td><input type="text" value="'+(soc.icon||'')+'" onchange="socials['+i+'].icon=this.value" style="width:90px"></td>'+
+                            '<td><input type="text" value="'+(soc.label||'')+'" onchange="socials['+i+'].label=this.value" style="width:110px"></td>'+
+                            '<td><input type="text" value="'+(soc.url||'')+'" onchange="socials['+i+'].url=this.value" style="width:220px"></td>'+
+                            '<td><button onclick="removeSocialRow('+i+')" style="background:#e74c3c;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;">حذف</button></td>';
+            tbody.appendChild(row);
+        });
+    }
+    function addSocialRow() {
+        socials.push({icon:'',label:'',url:''});
+        renderSocialsTable();
+    }
+    function removeSocialRow(idx) {
+        socials.splice(idx,1);
+        renderSocialsTable();
+    }
+    function loadSocials() {
+        fetch('socials.json').then(r=>r.json()).then(data=>{
+            socials = data;
+            renderSocialsTable();
+        }).catch(()=>{
+            socials = [];
+            renderSocialsTable();
+        });
+    }
+    function saveSocials() {
+        fetch('socials.json', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(socials)
+        }).then(()=>{
+            document.getElementById('msg-socials').textContent = 'تم الحفظ بنجاح!';
+            setTimeout(()=>{document.getElementById('msg-socials').textContent='';}, 2000);
+        });
+    }
         // Tabs switching
         function showTab(tab) {
             document.getElementById('tab-products').style.display = tab==='products' ? '' : 'none';
             document.getElementById('tab-intro').style.display = tab==='intro' ? '' : 'none';
             document.getElementById('tab-slides').style.display = tab==='slides' ? '' : 'none';
+            document.getElementById('tab-contact').style.display = tab==='contact' ? '' : 'none';
             document.getElementById('nav-products').classList.toggle('active', tab==='products');
             document.getElementById('nav-intro').classList.toggle('active', tab==='intro');
             document.getElementById('nav-slides').classList.toggle('active', tab==='slides');
+            document.getElementById('nav-contact').classList.toggle('active', tab==='contact');
+            document.getElementById('nav-settings').classList.toggle('active', tab==='settings');
             if(tab==='slides') loadSlides();
+            if(tab==='settings') { loadSettings(); loadSocials(); }
+            if(tab==='contact') loadContact();
+        }
+    // --------------------------------------------------
+    // أكواد قسم التواصل (جديد)
+    // --------------------------------------------------
+    // منصات السوشال ميديا المدعومة
+    const SOCIALS_META = [
+        {key:'snapchat', label:'سناب شات', icon:'assets/brand/snapshat.svg', url:'https://www.snapchat.com/add/', usernamePrefix:'@'},
+        {key:'tiktok', label:'تيك توك', icon:'assets/brand/tiktok.svg', url:'https://www.tiktok.com/@', usernamePrefix:'@'},
+        {key:'whatsapp', label:'واتساب', icon:'assets/brand/whatsapp.svg', url:'https://wa.me/', usernamePrefix:''},
+        {key:'instagram', label:'انستقرام', icon:'assets/brand/instgram.svg', url:'https://instagram.com/', usernamePrefix:'@'},
+        {key:'x', label:'إكس', icon:'assets/brand/X-02.svg', url:'https://x.com/', usernamePrefix:'@'},
+        {key:'youtube', label:'يوتيوب', icon:'https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg', url:'https://www.youtube.com/', usernamePrefix:''}
+    ];
+
+    function loadContact() {
+        fetch('settings.json').then(r=>r.json()).then(data=>{
+            document.getElementById('contact-title').value = data.title || '';
+            document.getElementById('contact-desc').value = data.desc || '';
+            // بناء واجهة المنصات
+            const list = document.getElementById('socials-list');
+            list.innerHTML = '';
+            SOCIALS_META.forEach(soc => {
+                const socData = data[soc.key] || {url:'',enabled:false,icon:soc.icon};
+                const row = document.createElement('div');
+                row.style.display = 'flex';
+                row.style.alignItems = 'center';
+                row.style.gap = '10px';
+                row.innerHTML = `
+                    <input type="checkbox" id="contact-enable-${soc.key}" ${socData.enabled?'checked':''} style="margin-left:6px;">
+                    <label for="contact-enable-${soc.key}" style="min-width:90px;">${soc.label}</label>
+                    <img id="contact-icon-${soc.key}" src="${socData.icon||soc.icon}" alt="${soc.label}" style="width:32px;height:32px;border-radius:6px;background:#fff;border:1px solid #eee;cursor:pointer;" title="تغيير الأيقونة">
+                    <input type="file" id="contact-file-${soc.key}" accept="image/*" style="display:none">
+                    <span>${soc.usernamePrefix}</span>
+                    <input type="text" id="contact-username-${soc.key}" value="${extractUsername(soc,socData.url)}" placeholder="اسم الحساب" style="width:120px;">
+                    <span style="color:#888;font-size:13px;">الرابط:</span>
+                    <input type="text" id="contact-url-${soc.key}" value="${socData.url}" style="width:260px;direction:ltr;font-size:13px;" readonly>
+                `;
+                list.appendChild(row);
+                // أيقونة: عند الضغط عليها تفتح اختيار صورة
+                row.querySelector(`#contact-icon-${soc.key}`).onclick = ()=>{
+                    row.querySelector(`#contact-file-${soc.key}`).click();
+                };
+                row.querySelector(`#contact-file-${soc.key}`).onchange = e=>{
+                    const file = e.target.files[0];
+                    if(file) {
+                        const reader = new FileReader();
+                        reader.onload = ev=>{
+                            row.querySelector(`#contact-icon-${soc.key}`).src = ev.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                // عند تغيير اسم الحساب: توليد الرابط تلقائي
+                row.querySelector(`#contact-username-${soc.key}`).oninput = e=>{
+                    const username = e.target.value.trim();
+                    let url = '';
+                    if(username) {
+                        if(soc.key==='whatsapp') {
+                            url = soc.url + username.replace(/^\+/,"");
+                        } else if(soc.key==='youtube') {
+                            url = soc.url + (username.startsWith('channel/')||username.startsWith('c/')||username.startsWith('user/')?username:('@'+username));
+                        } else {
+                            url = soc.url + username.replace(/^@/,"");
+                        }
+                    }
+                    row.querySelector(`#contact-url-${soc.key}`).value = url;
+                };
+            });
+        }).catch(()=>{
+            document.getElementById('contact-title').value = '';
+            document.getElementById('contact-desc').value = '';
+            document.getElementById('socials-list').innerHTML = '';
+        });
+    }
+
+    function extractUsername(soc, url) {
+        if(!url) return '';
+        if(soc.key==='whatsapp') return url.replace(soc.url,"");
+        if(soc.key==='youtube') {
+            if(url.startsWith('https://www.youtube.com/')) return url.replace('https://www.youtube.com/','');
+            return url;
+        }
+        return url.replace(soc.url,"").replace(/^@/,"");
+    }
+
+    function saveContact() {
+        const title = document.getElementById('contact-title').value;
+        const desc = document.getElementById('contact-desc').value;
+        fetch('settings.json').then(r=>r.json()).then(data=>{
+            data.title = title;
+            data.desc = desc;
+            // تحديث بيانات المنصات
+            SOCIALS_META.forEach(soc => {
+                const enabled = document.getElementById(`contact-enable-${soc.key}`).checked;
+                const username = document.getElementById(`contact-username-${soc.key}`).value.trim();
+                const url = document.getElementById(`contact-url-${soc.key}`).value.trim();
+                const icon = document.getElementById(`contact-icon-${soc.key}`).src;
+                data[soc.key] = { url, enabled, icon };
+            });
+            return fetch('settings.json', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(data)
+            });
+        }).then(()=>{
+            document.getElementById('msg-contact').textContent = 'تم الحفظ بنجاح!';
+            setTimeout(()=>{document.getElementById('msg-contact').textContent='';}, 2000);
+        });
+    }
+        // Settings section logic
+        function loadSettings() {
+            fetch('settings.json').then(r=>r.json()).then(data=>{
+                document.getElementById('settings-title').value = data.title || '';
+                document.getElementById('settings-desc').value = data.desc || '';
+                document.getElementById('settings-snap').value = data.snapchat?.url || '';
+                document.getElementById('enable-snapchat').checked = !!data.snapchat?.enabled;
+                document.getElementById('settings-tiktok').value = data.tiktok?.url || '';
+                document.getElementById('enable-tiktok').checked = !!data.tiktok?.enabled;
+                document.getElementById('settings-whatsapp').value = data.whatsapp?.url || '';
+                document.getElementById('enable-whatsapp').checked = !!data.whatsapp?.enabled;
+                document.getElementById('settings-instagram').value = data.instagram?.url || '';
+                document.getElementById('enable-instagram').checked = !!data.instagram?.enabled;
+                document.getElementById('settings-x').value = data.x?.url || '';
+                document.getElementById('enable-x').checked = !!data.x?.enabled;
+                document.getElementById('settings-youtube').value = data.youtube?.url || '';
+                document.getElementById('enable-youtube').checked = !!data.youtube?.enabled;
+            }).catch(()=>{
+                document.getElementById('settings-title').value = '';
+                document.getElementById('settings-desc').value = '';
+                document.getElementById('settings-snap').value = '';
+                document.getElementById('enable-snapchat').checked = false;
+                document.getElementById('settings-tiktok').value = '';
+                document.getElementById('enable-tiktok').checked = false;
+                document.getElementById('settings-whatsapp').value = '';
+                document.getElementById('enable-whatsapp').checked = false;
+                document.getElementById('settings-instagram').value = '';
+                document.getElementById('enable-instagram').checked = false;
+                document.getElementById('settings-x').value = '';
+                document.getElementById('enable-x').checked = false;
+                document.getElementById('settings-youtube').value = '';
+                document.getElementById('enable-youtube').checked = false;
+            });
+        }
+        function saveSettings() {
+            const settings = {
+                title: document.getElementById('settings-title').value,
+                desc: document.getElementById('settings-desc').value,
+                snapchat: { url: document.getElementById('settings-snap').value, enabled: document.getElementById('enable-snapchat').checked },
+                tiktok: { url: document.getElementById('settings-tiktok').value, enabled: document.getElementById('enable-tiktok').checked },
+                whatsapp: { url: document.getElementById('settings-whatsapp').value, enabled: document.getElementById('enable-whatsapp').checked },
+                instagram: { url: document.getElementById('settings-instagram').value, enabled: document.getElementById('enable-instagram').checked },
+                x: { url: document.getElementById('settings-x').value, enabled: document.getElementById('enable-x').checked },
+                youtube: { url: document.getElementById('settings-youtube').value, enabled: document.getElementById('enable-youtube').checked }
+            };
+            fetch('settings.json', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(settings)
+            }).then(()=>{
+                document.getElementById('msg-settings').textContent = 'تم الحفظ بنجاح!';
+                setTimeout(()=>{document.getElementById('msg-settings').textContent='';}, 2000);
+            });
         }
         // Slides section logic
         let slides = [];

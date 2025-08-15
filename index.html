@@ -120,30 +120,52 @@
                 </script>
     </section>
 
-    <section id="contact" style="position:relative;overflow:hidden;">
-        <!-- خلفية شفافة 20% -->
-        <div style="position:absolute;inset:0;z-index:0;pointer-events:none;">
-            <img src="assets/brand/contact-bg.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.2;">
-        </div>
-        <div class="contact-flex" style="position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-            <h2 class="contact-title">تواصل معنا</h2>
-            <div class="contact-socials">
-                <div style="display:flex;gap:18px;"></div>
-                    <div style="display:flex;gap:18px;justify-content:center;align-items:center;">
-                        <a href="https://www.snapchat.com/add/donts171" target="_blank" rel="noopener" aria-label="سناب شات @donts171">
-                            <img src="assets/brand/snapshat.svg" alt="سناب شات" style="width:48px;height:48px;">
-                        </a>
-                        <a href="https://www.tiktok.com/@donats171" target="_blank" rel="noopener" aria-label="تيك توك @donats171">
-                            <img src="assets/brand/tiktok.svg" alt="تيك توك" style="width:48px;height:48px;">
-                        </a>
-                        <img src="assets/brand/whatsapp.svg" alt="واتساب" style="width:32px;height:32px;display:none">
-                        <img src="assets/brand/X-02.svg" alt="إكس" style="width:32px;height:32px;display:none">
-                    </div>
-                    <div style="text-align:center;margin-top:19px;font-family:'Cairo',Arial,sans-serif;font-size:32px;font-weight:900;color:#850553;">
-                        راسلنا أو تابعنا
-                <div class="contact-desc" style="font-size:20px;color:#ffffff;font-weight:600;margin-top:8px;text-align:center;font-family:'Cairo',Arial,sans-serif;">على سناب أو تيك توك لأي استفسار أو طلب أو متابعة جديدنا</div>
-        </div>
-    </section>
+        <section id="contact" style="position:relative;overflow:hidden;">
+                <!-- خلفية شفافة 20% -->
+                <div style="position:absolute;inset:0;z-index:0;pointer-events:none;">
+                        <img src="assets/brand/contact-bg.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.2;">
+                </div>
+                <div class="contact-flex" style="position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                        <h2 class="contact-title">تواصل معنا</h2>
+                        <div class="contact-socials" id="contact-socials-list" style="display:flex;gap:18px;justify-content:center;align-items:center;"></div>
+                        <div style="text-align:center;margin-top:19px;font-family:'Cairo',Arial,sans-serif;font-size:32px;font-weight:900;color:#850553;">
+                                راسلنا أو تابعنا
+                        </div>
+                        <div class="contact-desc" id="contact-desc" style="font-size:20px;color:#ffffff;font-weight:600;margin-top:8px;text-align:center;font-family:'Cairo',Arial,sans-serif;"></div>
+                </div>
+                <script>
+                // جلب بيانات السوشال ميديا من settings.json
+                fetch('settings.json')
+                    .then(r=>r.json())
+                    .then(settings => {
+                                    const socials = [
+                                        { key: 'snapchat', icon: 'assets/brand/snapshat.svg', label: 'سناب شات' },
+                                        { key: 'tiktok', icon: 'assets/brand/tiktok.svg', label: 'تيك توك' },
+                                        { key: 'whatsapp', icon: 'assets/brand/whatsapp.svg', label: 'واتساب' },
+                                        { key: 'twitter', icon: 'assets/brand/twitter.svg', label: 'تويتر' },
+                                        { key: 'instagram', icon: 'assets/brand/instgram.svg', label: 'انستقرام' },
+                                        { key: 'x', icon: 'assets/brand/X-02.svg', label: 'إكس' },
+                                        { key: 'youtube', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg', label: 'يوتيوب' }
+                                    ];
+                        const list = document.getElementById('contact-socials-list');
+                        list.innerHTML = '';
+                        socials.forEach(soc => {
+                            const data = settings[soc.key];
+                            if(data && data.enabled && data.url) {
+                                const a = document.createElement('a');
+                                a.href = data.url;
+                                a.target = '_blank';
+                                a.rel = 'noopener';
+                                a.ariaLabel = soc.label;
+                                a.innerHTML = `<img src="${soc.icon}" alt="${soc.label}" style="width:48px;height:48px;">`;
+                                list.appendChild(a);
+                            }
+                        });
+                        // وصف التواصل
+                        document.getElementById('contact-desc').textContent = settings.desc || 'تابعنا على منصات التواصل لأي استفسار أو متابعة جديدنا';
+                    });
+                </script>
+        </section>
     <footer style="background:#D4128B;padding:14px 0;text-align:center;font-family:'Cairo',Arial,sans-serif;">
     <div style="max-width:480px;margin:auto;">
         <p style="font-size:15px;color:#fff;font-weight:700;margin:0;">© 2025 دونات وحشوة. جميع الحقوق محفوظة.</p>
