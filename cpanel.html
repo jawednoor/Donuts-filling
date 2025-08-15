@@ -117,7 +117,16 @@
     </style>
 </head>
 <body>
-    <nav class="sidebar">
+    <!-- شاشة التحقق برمز مؤقت (OTP) -->
+    <div id="otp-screen" style="position:fixed;inset:0;z-index:9999;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <img src="assets/brand/new-logo.png" alt="شعار دونات وحشوة" style="width:90px;margin-bottom:18px;">
+        <h2 style="color:#d4128b;margin-bottom:12px;">تسجيل الدخول الآمن</h2>
+        <p style="color:#444;margin-bottom:18px;">يرجى إدخال الرمز المؤقت من تطبيق Google Authenticator</p>
+        <input type="text" id="otp-input" maxlength="6" pattern="[0-9]*" inputmode="numeric" style="font-size:2rem;text-align:center;letter-spacing:8px;width:160px;padding:8px 0;margin-bottom:14px;border:2px solid #d4128b;border-radius:8px;outline:none;">
+        <button onclick="verifyOTP()" style="background:#d4128b;color:#fff;font-size:1.1rem;padding:8px 32px;border:none;border-radius:6px;cursor:pointer;">تحقق</button>
+        <p id="otp-msg" style="color:#e74c3c;margin-top:12px;"></p>
+    </div>
+    <nav class="sidebar" id="sidebar-nav" style="display:none;">
         <img src="assets/brand/new-logo.png" class="logo" alt="شعار دونات وحشوة">
         <h2>لوحة التحكم</h2>
         <ul>
@@ -129,7 +138,7 @@
         </ul>
 
     </nav>
-    <main class="main-content">
+    <main class="main-content" id="main-content" style="display:none;">
         <div id="tab-contact" style="display:none;max-width:800px;margin:auto;">
             <h1>إعدادات التواصل والسوشال ميديا</h1>
             <form onsubmit="saveContact();return false;">
@@ -204,6 +213,80 @@
         </div>
     </main>
     <script>
+    // ----------------------
+    // حماية الدخول برمز مؤقت (Google Authenticator)
+    // ----------------------
+    // سر مشترك ثابت (للتجربة فقط، يجب نقله للسيرفر لاحقاً)
+    const OTP_SECRET = 'JBSWY3DPEHPK3PXP'; // مثال: base32
+    // دالة توليد رمز TOTP (توافق Google Authenticator)
+    function base32tohex(base32) {
+        const base32chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+        let bits = "";
+        let hex = "";
+        for (let i = 0; i < base32.length; i++) {
+            const val = base32chars.indexOf(base32.charAt(i).toUpperCase());
+            bits += ("00000" + val.toString(2)).slice(-5);
+        }
+        for (let i = 0; i + 4 <= bits.length; i += 4) {
+            hex = hex + parseInt(bits.substr(i, 4), 2).toString(16);
+        }
+        return hex;
+    }
+    function leftpad(str, len, pad) {
+        return (new Array(len + 1).join(pad) + str).slice(-len);
+    }
+    async function generateTOTP(secret) {
+        const key = base32tohex(secret);
+        const epoch = Math.round(new Date().getTime() / 1000.0);
+        const time = leftpad((Math.floor(epoch / 30)).toString(16), 16, '0');
+        // HMAC-SHA1
+        const cryptoKey = await window.crypto.subtle.importKey(
+            'raw',
+            hexToBytes(key),
+            { name: 'HMAC', hash: 'SHA-1' },
+            false,
+            ['sign']
+        );
+        const msg = hexToBytes(time);
+        const hmac = await window.crypto.subtle.sign('HMAC', cryptoKey, msg);
+        const h = new Uint8Array(hmac);
+        const offset = h[19] & 0xf;
+        const code = ((h[offset] & 0x7f) << 24 | (h[offset + 1] & 0xff) << 16 | (h[offset + 2] & 0xff) << 8 | (h[offset + 3] & 0xff)) % 1000000;
+        return leftpad(code.toString(), 6, '0');
+    }
+    function hexToBytes(hex) {
+        const bytes = [];
+        for (let c = 0; c < hex.length; c += 2)
+            bytes.push(parseInt(hex.substr(c, 2), 16));
+        return new Uint8Array(bytes);
+    }
+    async function verifyOTP() {
+        const input = document.getElementById('otp-input').value.trim();
+        const msg = document.getElementById('otp-msg');
+        msg.textContent = '';
+        // إظهار انتظار
+        msg.textContent = 'جاري التحقق...';
+        await new Promise(res=>setTimeout(res, 1500));
+        if (!/^[0-9]{6}$/.test(input)) {
+            msg.textContent = 'الرمز غير صحيح';
+            return;
+        }
+        const code = await generateTOTP(OTP_SECRET);
+        if (input === code) {
+            document.getElementById('otp-screen').style.display = 'none';
+            document.getElementById('sidebar-nav').style.display = '';
+            document.getElementById('main-content').style.display = '';
+        } else {
+            msg.textContent = 'رمز غير صحيح أو منتهي الصلاحية';
+        }
+    }
+    // إظهار شاشة OTP فقط عند تحميل الصفحة
+    window.addEventListener('DOMContentLoaded', ()=>{
+        document.getElementById('otp-screen').style.display = '';
+        document.getElementById('sidebar-nav').style.display = 'none';
+        document.getElementById('main-content').style.display = 'none';
+    });
+    // ----------------------
     // Socials section logic
     let socials = [];
     function renderSocialsTable() {
