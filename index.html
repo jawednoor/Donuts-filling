@@ -20,10 +20,16 @@
         <div class="top-slides" id="slider-list">
             <!-- سيتم تعبئة السلايدات تلقائياً -->
         </div>
-        <script>
-        fetch('slides.json')
-            .then(res => res.json())
-            .then(slides => {
+                <script>
+                const slides = [
+                    { image: "img/IMG-20250807-WA0016.jpg", text: "طعمها يجنن!<br>جربها الآن" },
+                    { image: "img/IMG-20250807-WA0018.jpg", text: "نكهة الفراولة المميزة" },
+                    { image: "img/IMG-20250806-WA0002.jpg", text: "حشوة الفستق الغنية" },
+                    { image: "img/IMG-20250806-WA0003.jpg", text: "دونات بالحشوات الفاخرة" },
+                    { image: "img/IMG-20250807-WA058.jpg", text: "جديدنا كل يوم!" },
+                    { image: "img/IMG-20250807555-WA058.jpg", text: "نكهات مبتكرة" },
+                    { image: "img/IMG-2025dfd0807-WA058.jpg", text: "تذوق السعادة" }
+                ];
                 const slider = document.getElementById('slider-list');
                 slider.innerHTML = '';
                 slides.forEach((slide, i) => {
@@ -32,8 +38,7 @@
                     div.innerHTML = `<img class="top-slide" src="${slide.image}" alt="شريحة ${i+1}"><div class="slide-flash-text">${slide.text}</div>`;
                     slider.appendChild(div);
                 });
-            });
-        </script>
+                </script>
         <!-- تدرج علوي 30مم من شفافية 70% إلى 0% فوق الصور -->
         <div class="top-fade" aria-hidden="true"></div>
         <!-- طبقة المحتوى فوق السلايدات -->
