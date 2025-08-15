@@ -33,3 +33,10 @@ git push origin main
 git push origin master
 ```
 رابط صفحة INDEX http://127.0.0.1:3000/index.html
+
+
+
+git status
+git pull
+git add . && git commit -m "تحديث جميع الملفات بعد التطوير الأخير" && git push
+git add .; git commit -m "تحديث جميع الملفات بعد التطوير الأخير"; git push

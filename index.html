@@ -125,14 +125,14 @@
                 <div style="position:absolute;inset:0;z-index:0;pointer-events:none;">
                         <img src="assets/brand/contact-bg.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.2;">
                 </div>
-                <div class="contact-flex" style="position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-                        <h2 class="contact-title">تواصل معنا</h2>
-                        <div class="contact-socials" id="contact-socials-list" style="display:flex;gap:18px;justify-content:center;align-items:center;"></div>
-                        <div style="text-align:center;margin-top:19px;font-family:'Cairo',Arial,sans-serif;font-size:32px;font-weight:900;color:#850553;">
-                                راسلنا أو تابعنا
-                        </div>
-                        <div class="contact-desc" id="contact-desc" style="font-size:20px;color:#ffffff;font-weight:600;margin-top:8px;text-align:center;font-family:'Cairo',Arial,sans-serif;"></div>
-                </div>
+        <div class="contact-flex" style="position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <h2 class="contact-title" id="contact-title">تواصل معنا</h2>
+            <div class="contact-desc" id="contact-desc" style="font-size:20px;color:#ffffff;font-weight:600;margin-top:8px;text-align:center;font-family:'Cairo',Arial,sans-serif;"></div>
+            <div class="contact-socials" id="contact-socials-list" style="display:flex;gap:18px;justify-content:center;align-items:center;margin-top:18px;"></div>
+            <div style="text-align:center;margin-top:19px;font-family:'Cairo',Arial,sans-serif;font-size:32px;font-weight:900;color:#850553;">
+                راسلنا أو تابعنا
+            </div>
+        </div>
                 <script>
                 // جلب بيانات السوشال ميديا من settings.json
                 fetch('settings.json')
@@ -161,6 +161,8 @@
                                 list.appendChild(a);
                             }
                         });
+                        // عنوان التواصل
+                        document.getElementById('contact-title').textContent = settings.title || 'تواصل معنا';
                         // وصف التواصل
                         document.getElementById('contact-desc').textContent = settings.desc || 'تابعنا على منصات التواصل لأي استفسار أو متابعة جديدنا';
                     });

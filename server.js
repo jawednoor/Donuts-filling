@@ -1,3 +1,23 @@
+// --- دعم رفع الصور من السي بانل ---
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    let target = req.body.target || 'img';
+    if (!['img', 'assets/brand'].includes(target)) target = 'img';
+    const dest = path.join(__dirname, target);
+    if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    cb(null, dest);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+const upload = multer({ storage });
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'لم يتم رفع أي ملف' });
+  res.json({ success: true, filename: req.file.filename });
+});
 const express = require('express');
 const fs = require('fs');
 const path = require('path');

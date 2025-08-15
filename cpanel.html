@@ -137,7 +137,7 @@
                     <input type="text" id="contact-title" style="width:100%;margin-bottom:10px;">
                 </label><br>
                 <label>وصف التواصل:<br>
-                    <textarea id="contact-desc" rows="2" style="width:100%;margin-bottom:10px;"></textarea>
+                    <textarea id="contact-desc" rows="4" style="width:100%;margin-bottom:10px;"></textarea>
                 </label><br>
                 <fieldset style="border:1px solid #eee;padding:12px 8px 8px 8px;margin-bottom:16px;border-radius:8px;">
                     <legend style="font-size:1.1em;color:#850553;font-weight:700;">منصات السوشال ميديا</legend>
@@ -520,12 +520,21 @@
         tableBody.appendChild(row);
       }
     }
-    function handleFileChange(event, idx) {
-      const file = event.target.files[0];
-      if (!file) return;
-      products[idx].image = 'img/' + file.name;
-      renderTable();
-    }
+        async function handleFileChange(event, idx) {
+            const file = event.target.files[0];
+            if (!file) return;
+            // رفع الصورة إلى السيرفر
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('target', 'img');
+            const res = await fetch('/upload', { method: 'POST', body: formData });
+            if(res.ok) {
+                products[idx].image = 'img/' + file.name;
+                renderTable();
+            } else {
+                alert('فشل رفع الصورة!');
+            }
+        }
     function updateCount() {
       let n = parseInt(countInput.value);
       if (n < 1) n = 1;
