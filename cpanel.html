@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - دونات وحشوة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', Arial, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            direction: rtl;
+            display: flex;
+        }
+        .sidebar {
+            width: 220px;
+            background: linear-gradient(135deg,#23282d 80%,#444 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 2px 0 12px rgba(0,0,0,0.07);
+            padding-top: 32px;
+        }
+        .sidebar .logo {
+            width: 80px;
+            margin-bottom: 18px;
+        }
+        .sidebar h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0 0 32px 0;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+        .sidebar ul li {
+            width: 100%;
+        }
+        .sidebar ul li a {
+            display: block;
+            padding: 14px 32px 14px 0;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-right: 4px solid transparent;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .sidebar ul li a.active, .sidebar ul li a:hover {
+            background: #191e23;
+            border-right: 4px solid #d4128b;
+        }
+        .main-content {
+            flex: 1;
+            padding: 48px 32px;
+            background: #fff;
+            min-height: 100vh;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+        }
+        .main-content h1 {
+            color: #d4128b;
+            font-size: 2.1rem;
+            margin-bottom: 18px;
+        }
+        .main-content label {
+            font-weight: 600;
+        }
+        .main-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+        .main-content th, .main-content td {
+            border: 1px solid #eee;
+            padding: 8px;
+            text-align: center;
+        }
+        .main-content th {
+            background: #f0e6f6;
+            color: #850553;
+        }
+        .main-content input[type="text"] {
+            width: 90%;
+            padding: 4px;
+        }
+        .main-content input[type="file"] {
+            width: 90%;
+        }
+        .main-content .save-btn {
+            background: #27ae60;
+            color: #fff;
+            padding: 8px 24px;
+            border: none;
+            border-radius: 6px;
+            margin-top: 18px;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        .main-content #msg {
+            color: #27ae60;
+            text-align: center;
+            margin-top: 18px;
+        }
+        @media (max-width: 700px) {
+            .sidebar { display: none; }
+            .main-content { padding: 16px 4px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <img src="assets/brand/new-logo.png" class="logo" alt="شعار دونات وحشوة">
+        <h2>لوحة التحكم</h2>
+        <ul>
+            <li><a href="#" class="active" id="nav-products" onclick="showTab('products')">المنتجات</a></li>
+            <li><a href="#" id="nav-intro" onclick="showTab('intro')">من نحن</a></li>
+            <li><a href="#" style="opacity:0.5;pointer-events:none;">الإعدادات</a></li>
+        </ul>
+    </nav>
+    <main class="main-content">
+        <div id="tab-products">
+            <h1>إدارة المنتجات</h1>
+            <label>عدد المنتجات:
+                <input type="number" id="products-count" min="1" style="width:60px;text-align:center;" value="1" onchange="updateCount()">
+            </label>
+            <table id="products-table">
+                <thead>
+                    <tr><th>الصورة</th><th>العنوان</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button class="save-btn" onclick="saveProducts()">حفظ التعديلات</button>
+            <p id="msg"></p>
+            <p style="text-align:center;color:#888;font-size:13px;margin-top:24px;">* قد تحتاج إلى خادم محلي (مثل Live Server أو Node.js) ليعمل الحفظ بشكل صحيح.</p>
+        </div>
+        <div id="tab-intro" style="display:none;">
+            <h1>من نحن</h1>
+            <form onsubmit="saveIntro();return false;" style="max-width:500px;margin:auto;">
+                <label>العنوان الرئيسي:<br>
+                    <input type="text" id="intro-title" style="width:100%;margin-bottom:10px;">
+                </label><br>
+                <label>السطر الثاني:<br>
+                    <input type="text" id="intro-line2" style="width:100%;margin-bottom:10px;">
+                </label><br>
+                <label>السطر الثالث:<br>
+                    <input type="text" id="intro-line3" style="width:100%;margin-bottom:10px;">
+                </label><br>
+                <label>الوصف:<br>
+                    <textarea id="intro-desc" rows="3" style="width:100%;margin-bottom:10px;"></textarea>
+                </label><br>
+                <button class="save-btn" type="submit">حفظ من نحن</button>
+                <p id="msg-intro"></p>
+            </form>
+        </div>
+    </main>
+    <script>
+        // Tabs switching
+        function showTab(tab) {
+            document.getElementById('tab-products').style.display = tab==='products' ? '' : 'none';
+            document.getElementById('tab-intro').style.display = tab==='intro' ? '' : 'none';
+            document.getElementById('nav-products').classList.toggle('active', tab==='products');
+            document.getElementById('nav-intro').classList.toggle('active', tab==='intro');
+        }
+
+        // Intro section logic
+        function loadIntro() {
+            fetch('intro.json').then(r=>r.json()).then(data=>{
+                document.getElementById('intro-title').value = data.title || '';
+                document.getElementById('intro-line2').value = data.line2 || '';
+                document.getElementById('intro-line3').value = data.line3 || '';
+                document.getElementById('intro-desc').value = data.desc || '';
+            });
+        }
+        function saveIntro() {
+            const intro = {
+                title: document.getElementById('intro-title').value,
+                line2: document.getElementById('intro-line2').value,
+                line3: document.getElementById('intro-line3').value,
+                desc: document.getElementById('intro-desc').value
+            };
+            fetch('intro.json', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(intro)
+            }).then(()=>{
+                document.getElementById('msg-intro').textContent = 'تم الحفظ بنجاح!';
+                setTimeout(()=>{document.getElementById('msg-intro').textContent='';}, 2000);
+            });
+        }
+
+    let products = [];
+    const tableBody = document.querySelector('#products-table tbody');
+    const countInput = document.getElementById('products-count');
+    function renderTable() {
+      tableBody.innerHTML = '';
+      for(let i=0;i<products.length;i++) {
+        const prod = products[i] || {image:'', title:''};
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <input type="text" value="${prod.image}" onchange="products[${i}].image=this.value" style="width:95%">
+            <input type="file" accept="image/*" style="width:95%" onchange="handleFileChange(event,${i})">
+          </td>
+          <td><input type="text" value="${prod.title}" onchange="products[${i}].title=this.value" style="width:95%"></td>
+        `;
+        tableBody.appendChild(row);
+      }
+    }
+    function handleFileChange(event, idx) {
+      const file = event.target.files[0];
+      if (!file) return;
+      products[idx].image = 'img/' + file.name;
+      renderTable();
+    }
+    function updateCount() {
+      let n = parseInt(countInput.value);
+      if (n < 1) n = 1;
+      if (n > products.length) {
+        for(let i=products.length;i<n;i++) products.push({image:'', title:''});
+      } else if (n < products.length) {
+        products = products.slice(0, n);
+      }
+      renderTable();
+    }
+    function saveProducts() {
+      fetch('products.json', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(products)
+      }).then(()=>{
+        document.getElementById('msg').textContent = 'تم الحفظ بنجاح!';
+        setTimeout(()=>{document.getElementById('msg').textContent='';}, 2000);
+      });
+    }
+    fetch('products.json').then(r=>r.json()).then(data=>{
+      products = data;
+      countInput.value = products.length;
+      renderTable();
+    });
+    // تحميل بيانات من نحن عند فتح التبويب
+    document.getElementById('nav-intro').addEventListener('click', loadIntro);
+    // افتراضي: عرض المنتجات
+    showTab('products');
+    </script>
+</body>
+</html>
+</body>
+</html>

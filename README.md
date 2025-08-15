@@ -32,3 +32,4 @@ git push origin main
 ```powershell
 git push origin master
 ```
+رابط صفحة INDEX http://127.0.0.1:3000/index.html
