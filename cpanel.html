@@ -122,6 +122,7 @@
         <h2>لوحة التحكم</h2>
         <ul>
             <li><a href="#" class="active" id="nav-products" onclick="showTab('products')">المنتجات</a></li>
+            <li><a href="#" id="nav-slides" onclick="showTab('slides')">السلايدر</a></li>
             <li><a href="#" id="nav-intro" onclick="showTab('intro')">من نحن</a></li>
             <li><a href="#" style="opacity:0.5;pointer-events:none;">الإعدادات</a></li>
         </ul>
@@ -141,6 +142,22 @@
             <button class="save-btn" onclick="saveProducts()">حفظ التعديلات</button>
             <p id="msg"></p>
             <p style="text-align:center;color:#888;font-size:13px;margin-top:24px;">* قد تحتاج إلى خادم محلي (مثل Live Server أو Node.js) ليعمل الحفظ بشكل صحيح.</p>
+        </div>
+        <div id="tab-slides" style="display:none;">
+            <h1>إدارة السلايدر (الشرائح)</h1>
+            <label>عدد الشرائح:
+                <input type="number" id="slides-count" min="1" style="width:60px;text-align:center;" value="1" onchange="updateSlidesCount()">
+            </label>
+            <table id="slides-table">
+                <thead>
+                    <tr><th>الصورة</th><th>النص</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button class="save-btn" onclick="saveSlides()">حفظ السلايدر</button>
+            <p id="msg-slides"></p>
+            <p style="text-align:center;color:#888;font-size:13px;margin-top:24px;">* يمكنك رفع الصور إلى مجلد img/ يدوياً أو اختيار صورة من جهازك (سيتم حفظ اسمها فقط).</p>
+        </div>
         </div>
         <div id="tab-intro" style="display:none;">
             <h1>من نحن</h1>
@@ -167,8 +184,64 @@
         function showTab(tab) {
             document.getElementById('tab-products').style.display = tab==='products' ? '' : 'none';
             document.getElementById('tab-intro').style.display = tab==='intro' ? '' : 'none';
+            document.getElementById('tab-slides').style.display = tab==='slides' ? '' : 'none';
             document.getElementById('nav-products').classList.toggle('active', tab==='products');
             document.getElementById('nav-intro').classList.toggle('active', tab==='intro');
+            document.getElementById('nav-slides').classList.toggle('active', tab==='slides');
+            if(tab==='slides') loadSlides();
+        }
+        // Slides section logic
+        let slides = [];
+        const slidesTableBody = document.createElement('tbody');
+        function renderSlidesTable() {
+            const table = document.getElementById('slides-table');
+            const countInput = document.getElementById('slides-count');
+            table.tBodies[0].innerHTML = '';
+            for(let i=0;i<slides.length;i++) {
+                const slide = slides[i] || {image:'', text:''};
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                  <td style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                    <input type="text" value="${slide.image}" onchange="slides[${i}].image=this.value" style="width:95%">
+                    <input type="file" accept="image/*" style="width:95%" onchange="handleSlideFileChange(event,${i})">
+                  </td>
+                  <td><input type="text" value="${slide.text.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" onchange="slides[${i}].text=this.value" style="width:95%"></td>
+                `;
+                table.tBodies[0].appendChild(row);
+            }
+        }
+        function handleSlideFileChange(event, idx) {
+            const file = event.target.files[0];
+            if (!file) return;
+            slides[idx].image = 'img/' + file.name;
+            renderSlidesTable();
+        }
+        function updateSlidesCount() {
+            let n = parseInt(document.getElementById('slides-count').value);
+            if (n < 1) n = 1;
+            if (n > slides.length) {
+                for(let i=slides.length;i<n;i++) slides.push({image:'', text:''});
+            } else if (n < slides.length) {
+                slides = slides.slice(0, n);
+            }
+            renderSlidesTable();
+        }
+        function saveSlides() {
+            fetch('slides.json', {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify(slides)
+            }).then(()=>{
+                document.getElementById('msg-slides').textContent = 'تم الحفظ بنجاح!';
+                setTimeout(()=>{document.getElementById('msg-slides').textContent='';}, 2000);
+            });
+        }
+        function loadSlides() {
+            fetch('slides.json').then(r=>r.json()).then(data=>{
+                slides = data;
+                document.getElementById('slides-count').value = slides.length;
+                renderSlidesTable();
+            });
         }
 
         // Intro section logic
@@ -250,6 +323,8 @@
     document.getElementById('nav-intro').addEventListener('click', loadIntro);
     // افتراضي: عرض المنتجات
     showTab('products');
+    // تحميل السلايدات تلقائياً عند فتح لوحة التحكم
+    loadSlides();
     </script>
 </body>
 </html>

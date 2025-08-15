@@ -1,12 +1,24 @@
-
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
-const PORT = 5500;
+const PORT = process.env.PORT || 3000;
 
-app.use(express.static(__dirname));
 app.use(express.json());
+app.use(express.static(__dirname));
+
+// قراءة slides.json
+app.get('/slides.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'slides.json'));
+});
+
+// حفظ slides.json
+app.post('/slides.json', (req, res) => {
+  fs.writeFile(path.join(__dirname, 'slides.json'), JSON.stringify(req.body, null, 2), err => {
+    if (err) return res.status(500).json({error: 'خطأ في الحفظ'});
+    res.json({success: true});
+  });
+});
 
 // قراءة المنتجات
 app.get('/products.json', (req, res) => {
@@ -33,6 +45,7 @@ app.post('/products.json', (req, res) => {
     res.json({success: true});
   });
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
