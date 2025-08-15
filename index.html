@@ -21,23 +21,42 @@
             <!-- سيتم تعبئة السلايدات تلقائياً -->
         </div>
                 <script>
-                const slides = [
-                    { image: "img/IMG-20250807-WA0016.jpg", text: "طعمها يجنن!<br>جربها الآن" },
-                    { image: "img/IMG-20250807-WA0018.jpg", text: "نكهة الفراولة المميزة" },
-                    { image: "img/IMG-20250806-WA0002.jpg", text: "حشوة الفستق الغنية" },
-                    { image: "img/IMG-20250806-WA0003.jpg", text: "دونات بالحشوات الفاخرة" },
-                    { image: "img/IMG-20250807-WA058.jpg", text: "جديدنا كل يوم!" },
-                    { image: "img/IMG-20250807555-WA058.jpg", text: "نكهات مبتكرة" },
-                    { image: "img/IMG-2025dfd0807-WA058.jpg", text: "تذوق السعادة" }
-                ];
-                const slider = document.getElementById('slider-list');
-                slider.innerHTML = '';
-                slides.forEach((slide, i) => {
-                    const div = document.createElement('div');
-                    div.className = 'slide-wrap' + (i===0 ? ' is-active' : '');
-                    div.innerHTML = `<img class="top-slide" src="${slide.image}" alt="شريحة ${i+1}"><div class="slide-flash-text">${slide.text}</div>`;
-                    slider.appendChild(div);
-                });
+                                // إضافة خاصية الزمن لكل شريحة بالمللي ثانية
+                                // duration: الزمن بالمللي ثانية (1000 = ثانية واحدة)
+                                // 2500 = 2.5 ثانية، 2000 = ثانيتين، 3000 = 3 ثواني
+                                //يعني الثانية X = 1000 مللي ثانية
+                                //مثال لوكان 15 ثانية يعني يكون 15*1000 = 15000 مللي ثانية
+                                const slides = [
+                                    { image: "img/IMG-20250807-WA0016.jpg", text: "طعمها يجنن!<br>جربها الآن", duration: 2500 }, // تظهر هذه الشريحة لمدة 2.5 ثانية
+                                    { image: "img/IMG-20250806-WA0003.jpg", text: "دونات بالحشوات الفاخرة", duration: 2500 }, // تظهر هذه الشريحة لمدة 2.5 ثانية
+                                    { image: "img/IMG-20250807-WA058.jpg", text: "جديدنا كل يوم!", duration: 2000 }, // تظهر هذه الشريحة لمدة ثانيتين
+                                    { image: "img/IMG-20250807555-WA058.jpg", text: "مليانة ومشبعة", duration: 2500 }, // تظهر هذه الشريحة لمدة 2.5 ثانية
+                                    { image: "img/IMG-2025dfd0807-WA058.jpg", text: "تذوق السعادة", duration: 2200 } // تظهر هذه الشريحة لمدة 2.2 ثانية
+                                ];
+                                const slider = document.getElementById('slider-list');
+                                slider.innerHTML = '';
+                                slides.forEach((slide, i) => {
+                                        const div = document.createElement('div');
+                                        div.className = 'slide-wrap' + (i===0 ? ' is-active' : '');
+                                        div.innerHTML = `<img class="top-slide" src="${slide.image}" alt="شريحة ${i+1}"><div class="slide-flash-text">${slide.text}</div>`;
+                                        slider.appendChild(div);
+                                });
+
+                                // تفعيل السلايدر التلقائي حسب زمن كل شريحة
+                                let current = 0;
+                                const slideEls = slider.querySelectorAll('.slide-wrap');
+                                function showSlide(idx) {
+                                    slideEls.forEach((el, i) => {
+                                        el.classList.toggle('is-active', i === idx);
+                                    });
+                                }
+                                function nextSlide() {
+                                    current = (current + 1) % slides.length;
+                                    showSlide(current);
+                                    setTimeout(nextSlide, slides[current].duration || 2500);
+                                }
+                                // بدء السلايدر بعد أول زمن
+                                setTimeout(nextSlide, slides[0].duration || 2500);
                 </script>
         <!-- تدرج علوي 30مم من شفافية 70% إلى 0% فوق الصور -->
         <div class="top-fade" aria-hidden="true"></div>
