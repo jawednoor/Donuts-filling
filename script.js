@@ -9,25 +9,20 @@
   overlay.innerHTML = `
     <div class="lightbox-content">
       <button class="lightbox-close" aria-label="إغلاق">×</button>
-      <img alt="صورة المنتج"/>
+      <img alt=""/>
     </div>
   `;
+  // إخفاء اللايت بوكس افتراضياً
+  overlay.style.display = 'none';
   document.body.appendChild(overlay);
   const imgEl = overlay.querySelector('img');
   const closeBtn = overlay.querySelector('.lightbox-close');
-
-  // فتح اللايت بوكس عند الضغط على أي صورة في المعرض
-  grid.addEventListener('click', (e)=>{
-    const target = e.target;
-    if(target && target.tagName === 'IMG'){
-      imgEl.src = target.src;
-      imgEl.alt = target.alt || 'صورة المنتج';
-      overlay.classList.add('open');
-    }
-  });
-
+  
   // إغلاق عند الضغط على الزر أو خارج المحتوى أو زر Escape
-  function close(){ overlay.classList.remove('open'); }
+  function close(){
+    overlay.classList.remove('open');
+    overlay.style.display = 'none';
+  }
   closeBtn.addEventListener('click', close);
   overlay.addEventListener('click', (e)=>{ if(e.target === overlay) close(); });
   document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });

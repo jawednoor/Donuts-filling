@@ -108,17 +108,9 @@
                         </div>
                 </div>
                 <script>
-                fetch('intro.json')
-                    .then(res => res.json())
-                    .then(intro => {
-                        // بناء العنوان كسطور متعددة
-                        let title = intro.title || '';
-                        if(intro.line2) title += '<br>' + intro.line2;
-                        if(intro.line3) title += '<br>' + intro.line3;
-                        document.getElementById('intro-title').innerHTML = title;
-                        // الوصف مع دعم الأسطر
-                        document.getElementById('intro-desc').innerHTML = (intro.desc||'').replace(/\n/g,'<br>');
-                    });
+                // نصوص تعريفية مباشرة بدون intro.json
+                document.getElementById('intro-title').innerHTML = 'دونات وحشوة<br>نكهات مبتكرة';
+                document.getElementById('intro-desc').innerHTML = 'نقدم لكم ألذ أنواع الدونات المحشوة بنكهات فريدة وجودة عالية. اكتشف تشكيلتنا واستمتع بتجربة طعم لا تُنسى!';
                 </script>
     </section>
 
@@ -128,20 +120,25 @@
                 <div class="gallery-grid" id="products-list">
                         <!-- سيتم تعبئة المنتجات تلقائياً -->
                 </div>
-                <script>
-                fetch('products.json')
-                    .then(res => res.json())
-                    .then(products => {
-                        const grid = document.getElementById('products-list');
-                        grid.innerHTML = '';
-                        products.forEach(prod => {
-                            const fig = document.createElement('figure');
-                            fig.className = 'gallery-card';
-                            fig.innerHTML = `<img src="${prod.image}" alt="${prod.title}"><figcaption>${prod.title}</figcaption>`;
-                            grid.appendChild(fig);
-                        });
-                    });
-                </script>
+                                <script>
+                                // المنتجات مباشرة بدون products.json
+                                const products = [
+                                    { image: "img/IMG-20250806-WA0002.jpg", title: "حشوة الفستق" },
+                                    { image: "img/IMG-20250807-WA058.jpg", title: "حشوة اللوتس" },
+                                    { image: "img/IMG-20250807-WA0018.jpg", title: "حشوة الكندر" },
+                                    { image: "img/IMG-202508027555-WA058.jpg", title: "حشوة المانجو" },
+                                    { image: "img/IMG-20250807-WA55058.jpg", title: "حشوة ريدفلفت" },
+                                    { image: "img/IMG-20250807-WA22555058.jpg", title: "حشوة الشوكولاتة" }
+                                ];
+                                const grid = document.getElementById('products-list');
+                                grid.innerHTML = '';
+                                products.forEach(prod => {
+                                    const fig = document.createElement('figure');
+                                    fig.className = 'gallery-card';
+                                    fig.innerHTML = `<img src="${prod.image}" alt="${prod.title}"><figcaption>${prod.title}</figcaption>`;
+                                    grid.appendChild(fig);
+                                });
+                                </script>
     </section>
 
         <section id="contact" style="position:relative;overflow:hidden;">
@@ -157,40 +154,34 @@
                 راسلنا أو تابعنا
             </div>
         </div>
-                <script>
-                // جلب بيانات السوشال ميديا من settings.json
-                fetch('settings.json')
-                    .then(r=>r.json())
-                    .then(settings => {
-                                    const socials = [
-                                        { key: 'snapchat', icon: 'assets/brand/snapshat.svg', label: 'سناب شات' },
-                                        { key: 'tiktok', icon: 'assets/brand/tiktok.svg', label: 'تيك توك' },
-                                        { key: 'whatsapp', icon: 'assets/brand/whatsapp.svg', label: 'واتساب' },
-                                        { key: 'twitter', icon: 'assets/brand/twitter.svg', label: 'تويتر' },
-                                        { key: 'instagram', icon: 'assets/brand/instgram.svg', label: 'انستقرام' },
-                                        { key: 'x', icon: 'assets/brand/X-02.svg', label: 'إكس' },
-                                        { key: 'youtube', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg', label: 'يوتيوب' }
-                                    ];
-                        const list = document.getElementById('contact-socials-list');
-                        list.innerHTML = '';
-                        socials.forEach(soc => {
-                            const data = settings[soc.key];
-                            if(data && data.enabled && data.url) {
-                                const a = document.createElement('a');
-                                a.href = data.url;
-                                a.target = '_blank';
-                                a.rel = 'noopener';
-                                a.ariaLabel = soc.label;
-                                a.innerHTML = `<img src="${soc.icon}" alt="${soc.label}" style="width:48px;height:48px;">`;
-                                list.appendChild(a);
-                            }
-                        });
-                        // عنوان التواصل
-                        document.getElementById('contact-title').textContent = settings.title || 'تواصل معنا';
-                        // وصف التواصل
-                        document.getElementById('contact-desc').textContent = settings.desc || 'تابعنا على منصات التواصل لأي استفسار أو متابعة جديدنا';
-                    });
-                </script>
+                                <script>
+                                // بيانات التواصل مباشرة بدون settings.json
+                                const socials = [
+                                    { url: 'https://www.snapchat.com/add/donts171', icon: 'assets/brand/snapshat.svg', label: 'سناب شات' },
+                                    { url: 'https://www.tiktok.com/@donats171', icon: 'assets/brand/tiktok.svg', label: 'تيك توك' },
+                                    { url: 'https://wa.me/966544595874', icon: 'assets/brand/whatsapp.svg', label: 'واتساب' },
+                                    { url: 'https://instagram.com/', icon: 'assets/brand/instgram.svg', label: 'انستقرام', hidden: true },
+                                    { url: 'https://x.com/', icon: 'assets/brand/X-02.svg', label: 'إكس', hidden: true },
+                                    { url: 'https://youtube.com/', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg', label: 'يوتيوب', hidden: true }
+                                ];
+                                const list = document.getElementById('contact-socials-list');
+                                list.innerHTML = '';
+                                socials.forEach(soc => {
+                                    if(soc.url && !soc.hidden) {
+                                        const a = document.createElement('a');
+                                        a.href = soc.url;
+                                        a.target = '_blank';
+                                        a.rel = 'noopener';
+                                        a.ariaLabel = soc.label;
+                                        a.innerHTML = `<img src="${soc.icon}" alt="${soc.label}" style="width:48px;height:48px;">`;
+                                        list.appendChild(a);
+                                    }
+                                });
+                                // عنوان التواصل
+                                document.getElementById('contact-title').textContent = 'تواصل معنا';
+                                // وصف التواصل
+                                document.getElementById('contact-desc').textContent = 'تابعنا على منصات التواصل لأي استفسار أو متابعة جديدنا';
+                                </script>
         </section>
     <footer style="background:#D4128B;padding:14px 0;text-align:center;font-family:'Cairo',Arial,sans-serif;">
     <div style="max-width:480px;margin:auto;">
