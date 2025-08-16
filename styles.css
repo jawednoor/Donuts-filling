@@ -192,8 +192,8 @@ section#contact, section#contact.reveal, .contact-flex {
   --font-ibm-plex-arabic: "IBM Plex Sans Arabic",ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   --font-saudi: "Saudi",ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   /* ألوان الهوية العامة */
-  --brand: #d40887;
-  --brand-2: #e33295;
+  --brand: #ff009d;
+  --brand-2: #3a0422;
   --ink: #1f1f1f;
   --frame: #f4c0d3;
   /* لا يوجد هيدر الآن */
@@ -203,7 +203,7 @@ section#contact, section#contact.reveal, .contact-flex {
 /* تطبيق الخلفية المتدرجة المطلوبـة على صفحة الموقع */
 body{
   color-scheme: dark;
-  background-image: linear-gradient(#d40887, #e33295 20%);
+  background-image: linear-gradient(#d40887, #5a0937 20%);
   background-attachment: fixed;
   animation: none !important; /* إيقاف أي أنيميشن خلفية سابقة */
 }
@@ -314,7 +314,7 @@ section h2::after, section h1::after {
     content:"";
     display: block;
     width: 100%;
-    height: 38px;
+    height: 10px;
     margin-bottom: -22px;
     background: linear-gradient(90deg, var(--brand), var(--brand-2));
     border-radius:4px;
