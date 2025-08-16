@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع دونات وحشوة </title>
+    <link rel="icon" type="image/png" href="assets/brand/new-logo.png">
+    <link rel="apple-touch-icon" href="assets/brand/new-logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="bgfx" aria-hidden="true"></div>
+    
+
+    <!-- سلايدر علوي ملء الشاشة مع طبقة شعار وأزرار فوقه -->
+    <section id="home" class="top-slider" aria-label="شرائح تعريفية">
+        <div class="top-slides" id="slider-list">
+            <!-- سيتم تعبئة السلايدات تلقائياً -->
+        </div>
+                <script>
+                                // إضافة خاصية الزمن لكل شريحة بالمللي ثانية
+                                // duration: الزمن بالمللي ثانية (1000 = ثانية واحدة)
+                                // 2500 = 2.5 ثانية، 2000 = ثانيتين، 3000 = 3 ثواني
+                                //يعني الثانية X = 1000 مللي ثانية
+                                //مثال لوكان 15 ثانية يعني يكون 15*1000 = 15000 مللي ثانية
+                                const slides = [
+                                    { image: "img/IMG-20250807-WA0016.jpg", text: "طعمها يجنن!<br>جربها الآن", duration: 2500 }, // تظهر هذه الشريحة لمدة 2.5 ثانية
+                                    { image: "img/IMG-20250806-WA0003.jpg", text: "دونات بالحشوات الفاخرة", duration: 2500 }, // تظهر هذه الشريحة لمدة 2.5 ثانية
+                                    { image: "img/IMG-20250807-WA058.jpg", text: "جديدنا كل يوم!", duration: 2000 }, // تظهر هذه الشريحة لمدة ثانيتين
+                                    { image: "img/IMG-20250807555-WA058.jpg", text: "مليانة ومشبعة", duration: 2500 }, // تظهر هذه الشريحة لمدة 2.5 ثانية
+                                    { image: "img/IMG-2025dfd0807-WA058.jpg", text: "تذوق السعادة", duration: 2200 } // تظهر هذه الشريحة لمدة 2.2 ثانية
+                                ];
+                                const slider = document.getElementById('slider-list');
+                                slider.innerHTML = '';
+                                slides.forEach((slide, i) => {
+                                        const div = document.createElement('div');
+                                        div.className = 'slide-wrap' + (i===0 ? ' is-active' : '');
+                                        div.innerHTML = `<img class="top-slide" src="${slide.image}" alt="شريحة ${i+1}"><div class="slide-flash-text">${slide.text}</div>`;
+                                        slider.appendChild(div);
+                                });
+
+                                // تفعيل السلايدر التلقائي حسب زمن كل شريحة
+                                let current = 0;
+                                const slideEls = slider.querySelectorAll('.slide-wrap');
+                                function showSlide(idx) {
+                                    slideEls.forEach((el, i) => {
+                                        el.classList.toggle('is-active', i === idx);
+                                    });
+                                }
+                                function nextSlide() {
+                                    current = (current + 1) % slides.length;
+                                    showSlide(current);
+                                    setTimeout(nextSlide, slides[current].duration || 2500);
+                                }
+                                // بدء السلايدر بعد أول زمن
+                                setTimeout(nextSlide, slides[0].duration || 2500);
+                </script>
+        <!-- تدرج علوي 30مم من شفافية 70% إلى 0% فوق الصور -->
+        <div class="top-fade" aria-hidden="true"></div>
+        <!-- طبقة المحتوى فوق السلايدات -->
+        <div class="top-overlay">
+            <div class="hero-content">
+                <img class="hero-logo" src="assets/brand/new-logo.png" alt="شعار دونات وحشوة">
+                <div class="hero-icons">
+                    <a href="#home" class="hero-icon" aria-label="البداية"><span class="txt">البداية</span></a>
+                    <a href="#intro" class="hero-icon" aria-label="من نحن"><span class="txt">من نحن</span></a>
+                    <a href="#products" class="hero-icon" aria-label="منتجاتنا"><span class="txt">منتجاتنا</span></a>
+                    <a href="#contact" class="hero-icon" aria-label="تواصل معنا"><span class="txt">تواصل</span></a>
+                </div>
+                                <a href="#intro" class="scroll-down" aria-label="انزل للأسفل" style="display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;margin-top:38px;">
+                                    <span class="scroll-btn" style="display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#D4128B 80%,#fff 100%);box-shadow:0 4px 16px rgba(212,18,139,0.18);border:3px solid #fff;animation:scrollBounce 1.2s infinite;">
+                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="16" cy="16" r="13" stroke="none" stroke-width="0" fill="none"/>
+                                            <polyline points="10,14 16,20 22,14" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </span>
+                                    <span style="font-family:'Cairo',Arial,sans-serif;font-size:16px;color:#D4128B;font-weight:700;background:#fff;border-radius:12px;padding:2px 14px;box-shadow:0 2px 8px rgba(212,18,139,0.10);">انزل للأسفل</span>
+                                </a>
+                                <style>
+                                @keyframes scrollBounce {
+                                    0%, 100% { transform: translateY(0);}
+                                    50% { transform: translateY(16px);}
+                                }
+                                </style>
+            </div>
+        </div>
+        <!-- حافة زيك زاك صغيرة مدمجة داخل السلايدر -->
+        <svg class="zigzag-edge" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+                <linearGradient id="zigzagGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="var(--brand)"/>
+                    <stop offset="100%" stop-color="var(--brand-2)"/>
+                </linearGradient>
+            </defs>
+            <polygon fill="url(#zigzagGrad)" points="0,0 5,10 10,0 15,10 20,0 25,10 30,0 35,10 40,0 45,10 50,0 55,10 60,0 65,10 70,0 75,10 80,0 85,10 90,0 95,10 100,0 100,10 0,10"></polygon>
+        </svg>
+    </section>
+    
+    <section id="intro" class="intro reveal">
+                <div class="intro-flex">
+                        <img class="intro-logo" src="assets/brand/new-logo.png" alt="شعار دونات وحشوة">
+                        <div class="intro-texts">
+                                <h2 class="intro-title" id="intro-title"></h2>
+                                <div style="height:20px;"></div>
+                                <p class="intro-desc" id="intro-desc"></p>
+                        </div>
+                </div>
+                <script>
+                // نصوص تعريفية مباشرة بدون intro.json
+                document.getElementById('intro-title').innerHTML = 'دونات وحشوة<br>نكهات مبتكرة';
+                document.getElementById('intro-desc').innerHTML = 'نقدم لكم ألذ أنواع الدونات المحشوة بنكهات فريدة وجودة عالية. اكتشف تشكيلتنا واستمتع بتجربة طعم لا تُنسى!';
+                </script>
+    </section>
+
+    <section id="products">
+                <h2>منتجاتنا</h2>
+                <p>استمتع بألذ النكهات التي تناسب جميع الأذواق.</p>
+                <div class="gallery-grid" id="products-list">
+                        <!-- سيتم تعبئة المنتجات تلقائياً -->
+                </div>
+                                <script>
+                                // المنتجات مباشرة بدون products.json
+                                const products = [
+                                    { image: "img/IMG-20250806-WA0002.jpg", title: "حشوة الفستق" },
+                                    { image: "img/IMG-20250807-WA058.jpg", title: "حشوة اللوتس" },
+                                    { image: "img/IMG-20250807-WA0018.jpg", title: "حشوة الكندر" },
+                                    { image: "img/IMG-202508027555-WA058.jpg", title: "حشوة المانجو" },
+                                    { image: "img/IMG-20250807-WA55058.jpg", title: "حشوة ريدفلفت" },
+                                    { image: "img/IMG-20250807-WA22555058.jpg", title: "حشوة الشوكولاتة" }
+                                ];
+                                const grid = document.getElementById('products-list');
+                                grid.innerHTML = '';
+                                products.forEach(prod => {
+                                    const fig = document.createElement('figure');
+                                    fig.className = 'gallery-card';
+                                    fig.innerHTML = `<img src="${prod.image}" alt="${prod.title}"><figcaption>${prod.title}</figcaption>`;
+                                    grid.appendChild(fig);
+                                });
+                                </script>
+    </section>
+
+        <section id="contact" style="position:relative;overflow:hidden;">
+                <!-- خلفية شفافة 20% -->
+                <div style="position:absolute;inset:0;z-index:0;pointer-events:none;">
+                        <img src="assets/brand/contact-bg.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.5;">
+                </div>
+            <h2 class="contact-title" id="contact-title">تواصل معنا</h2>
+            <div style="height:20px;"></div>
+            <div class="contact-desc" id="contact-desc" style="font-size:20px;color:#ffffff;font-weight:600;margin-top:8px;text-align:center;font-family:'Cairo',Arial,sans-serif;"></div>
+            <div class="contact-socials" id="contact-socials-list" style="display:flex;gap:18px;justify-content:center;align-items:center;margin-top:18px;"></div>            </div>
+        </div>
+                                <script>
+                                // بيانات التواصل مباشرة بدون settings.json
+                                const socials = [
+                                    { url: 'https://www.snapchat.com/add/donts171', icon: 'assets/brand/snapshat.svg', label: 'سناب شات' },
+                                    { url: 'https://www.tiktok.com/@donats171', icon: 'assets/brand/tiktok.svg', label: 'تيك توك' },
+                                    { url: 'https://wa.me/966544595874', icon: 'assets/brand/whatsapp.svg', label: 'واتساب' },
+                                    { url: 'https://instagram.com/', icon: 'assets/brand/instgram.svg', label: 'انستقرام', hidden: true },
+                                    { url: 'https://x.com/', icon: 'assets/brand/X-02.svg', label: 'إكس', hidden: true },
+                                    { url: 'https://youtube.com/', icon: 'https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg', label: 'يوتيوب', hidden: true }
+                                ];
+                                const list = document.getElementById('contact-socials-list');
+                                list.innerHTML = '';
+                                socials.forEach(soc => {
+                                    if(soc.url && !soc.hidden) {
+                                        const a = document.createElement('a');
+                                        a.href = soc.url;
+                                        a.target = '_blank';
+                                        a.rel = 'noopener';
+                                        a.ariaLabel = soc.label;
+                                        a.innerHTML = `<img src="${soc.icon}" alt="${soc.label}" style="width:48px;height:48px;">`;
+                                        list.appendChild(a);
+                                    }
+                                });
+                                // عنوان التواصل
+                                document.getElementById('contact-title').textContent = 'تواصل معنا';
+                                // وصف التواصل
+                                document.getElementById('contact-desc').textContent = 'تابعنا على منصات التواصل لأي استفسار أو متابعة جديدنا';
+                                </script>
+        </section>
+    <footer style="background:#a7076a;padding:14px 0;text-align:center;font-family:'Cairo',Arial,sans-serif;">
+    <div style="max-width:480px;margin:auto;">
+        <p style="font-size:15px;color:#fff;font-weight:700;margin:0;">© 2025 دونات وحشوة. جميع الحقوق محفوظة.</p>
+        <p style="font-size:13px;color:#fff;margin:6px 0 0 0;">أحد فروع مؤسسة أذواق الجديدة.</p>
+    </div>
+    </footer>
+    <script src="script.js" defer></script>
+</body>
+</html>
+
+
