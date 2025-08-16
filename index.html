@@ -33,12 +33,16 @@
             inset: 0;
             z-index: 0;
             pointer-events: none;
-            background: linear-gradient(200deg, #F9D6E5 0%, #50003C 100%);
+            background: linear-gradient(200deg, #f8046e 0%, #50003C 100%);
             opacity: 0.45;
         }
         .bg-donut {
             position: fixed;
-            inset: 0;
+            left: 0;
+            top: 50%;
+            width: 100vw;
+            height: 100vh;
+            transform: translateY(-50%);
             z-index: 1;
             pointer-events: none;
             background: url('img/IMG-20250807-WA0016.jpg') center center/cover no-repeat;
@@ -56,7 +60,7 @@
             padding-top: 40px;
         }
         .logo-wrapper {
-            width: min(60vw, 320px);
+            width: min(70vw, 320px);
             aspect-ratio: 1/1;
             border-radius: 50%;
             overflow: hidden;
@@ -121,7 +125,7 @@
         }
         @media (max-width: 600px) {
             .logo-wrapper {
-                width: 70vw;
+                width: 50vw;
                 max-width: 220px;
             }
             .intro-text {
