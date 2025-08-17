@@ -8,25 +8,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         html, body {
-            height: 100%;
+            height: 100vh;
+            min-height: 100vh;
+            max-height: 100vh;
+            width: 100vw;
+            min-width: 100vw;
+            max-width: 100vw;
             margin: 0;
             padding: 0;
             font-family: 'Cairo', Arial, sans-serif;
-            min-height: 100vh;
-            width: 100vw;
             box-sizing: border-box;
+            overflow: hidden;
         }
         body {
-            min-height: 100vh;
-            min-width: 100vw;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             background: linear-gradient(160deg, #D40887 0%, #F9D6E5 100%);
-            /* لونين من ألوان الشعار */
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
+            height: 100vh;
+            min-height: 100vh;
+            max-height: 100vh;
+            width: 100vw;
+            min-width: 100vw;
+            max-width: 100vw;
         }
         .gradient2 {
             position: fixed;
@@ -39,10 +46,10 @@
         .bg-donut {
             position: fixed;
             left: 0;
-            top: 50%;
+            top: 0;
             width: 100vw;
             height: 100vh;
-            transform: translateY(-50%);
+            transform: none;
             z-index: 1;
             pointer-events: none;
             background: url('img/IMG-20250807-WA0016.jpg') center center/cover no-repeat;
@@ -52,12 +59,16 @@
             position: relative;
             z-index: 2;
             width: 100vw;
-            min-height: 100vh;
+            flex: 1 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             padding-top: 40px;
+            box-sizing: border-box;
+            min-height: 0;
+            height: auto;
+            max-height: none;
         }
         .logo-wrapper {
             width: min(50vw, 100px);
@@ -175,5 +186,9 @@
             </a>
         </div>
     </div>
+    <footer style="text-align:center;margin-top:10px;font-size:20px;color:#000000;opacity:1;font-family:'Cairo',Arial,sans-serif;">
+        شركة أذواق الجديدة دونات وحشوة<BR>
+        نسخة الموقع: 1.0.0 - آخر تحديث 2025-08-18
+    </footer>
 </body>
 </html>
